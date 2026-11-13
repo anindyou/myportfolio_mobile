@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Color Palette. Mengikuti color style di Figma
 class AppColors {
   AppColors._();
 
@@ -15,6 +16,7 @@ class AppColors {
   static const Color red = Color(0xFFFF4D66);
 }
 
+/// Model data untuk sebuah action button di main page
 class ItemHomepage {
   final String name;
   final IconData icon;
@@ -24,7 +26,7 @@ class ItemHomepage {
 }
 
 class MyHomePage extends StatelessWidget {
-  constMyHomePage({super.key});
+  const MyHomePage({super.key});
 
   final String mainTitle = 'MyPortfolio...';
   final String npm = '2506553295';
@@ -46,7 +48,8 @@ class MyHomePage extends StatelessWidget {
   final ItemHomepage logout =
       const ItemHomepage('Logout', Icons.logout, AppColors.red);
 
-  // Helper function: Membentuk baris berisi 2 ItemHomePage
+  // Helper function: Membentuk baris berisi 2 ItemHomepage
+  // Expanded: card mengisi separuh lebar yang tersedia
   Widget _buildRow(ItemHomepage left, ItemHomepage right) { 
     return Row(
       children: [
@@ -62,9 +65,9 @@ class MyHomePage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      body: SafeArea(
+      body: SafeArea( // Menghindari area notch dan status bar
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24), // Jarak 24 px di sekeliling seluruh konten dari layar utama
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -131,6 +134,7 @@ class InfoCard extends StatelessWidget {
                 const TextStyle(color: AppColors.blue, fontSize: 16),
           ),
           const SizedBox(width: 16),
+          // Flexible: mencegah teks panjang overflow keluar dari card
           Flexible(
             child: Text(
               content,
@@ -160,7 +164,9 @@ class ItemCard extends StatelessWidget {
       style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white) ??
           const TextStyle(color: AppColors.white, fontSize: 16),
     );
-
+    
+    // DecoratedBox untuk efek glow (BoxShadow) di luar card
+    // InkWell untuk ripple effect
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: borderRadius,
@@ -178,7 +184,7 @@ class ItemCard extends StatelessWidget {
           borderRadius: borderRadius,
           onTap: () {
             ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
+              ..hideCurrentSnackBar() // Menutup SnackBar sebelumnya supaya pesan tidak menumpuk
               ..showSnackBar(
                 SnackBar(
                   behavior: SnackBarBehavior.floating,
@@ -196,6 +202,8 @@ class ItemCard extends StatelessWidget {
           },
           child: Padding(
             padding: const EdgeInsets.all(16),
+            // horizontal = true -> icon di samping teks (logout)
+            // horizontal = false -> icon di atas teks (view / add)
             child: horizontal
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
