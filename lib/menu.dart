@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
 
+/// Spacing
+class AppSpacing {
+  AppSpacing._();
+
+  static const double sm = 8;
+  static const double md = 12;
+  static const double lg = 16;
+  static const double xl = 24;
+}
+
 /// Color Palette. Mengikuti color style di Figma
 class AppColors {
   AppColors._();
@@ -54,7 +64,7 @@ class MyHomePage extends StatelessWidget {
     return Row(
       children: [
         Expanded(child: ItemCard(left)),
-        const SizedBox(width: 12),
+        const SizedBox(width: AppSpacing.lg),
         Expanded(child: ItemCard(right)),
       ],
     );
@@ -67,7 +77,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea( // Menghindari area notch dan status bar
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24), // Jarak 24 px di sekeliling seluruh konten dari layar utama
+          padding: const EdgeInsets.all(AppSpacing.xl), // Jarak 24 px di sekeliling seluruh konten dari layar utama
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -82,23 +92,23 @@ class MyHomePage extends StatelessWidget {
                       fontSize: 32,
                     ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppSpacing.lg),
               InfoCard(title: 'npm', content: npm),
-              const SizedBox(height: 8),
+              const SizedBox(height: AppSpacing.sm),
               InfoCard(title: 'name', content: name),
-              const SizedBox(height: 8),
+              const SizedBox(height: AppSpacing.sm),
               InfoCard(title: 'class', content: myClass),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppSpacing.lg),
               Text(
                 bio,
                 style: textTheme.bodyLarge?.copyWith(color: AppColors.white) ??
                     const TextStyle(color: AppColors.white, fontSize: 16),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppSpacing.lg),
               _buildRow(viewSkills, addSkill),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppSpacing.lg),
               _buildRow(viewExperiences, addExperience),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppSpacing.lg),
               ItemCard(logout, horizontal: true),
             ],
           ),
@@ -119,7 +129,7 @@ class InfoCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
@@ -133,7 +143,7 @@ class InfoCard extends StatelessWidget {
             style: textTheme.bodyLarge?.copyWith(color: AppColors.blue) ??
                 const TextStyle(color: AppColors.blue, fontSize: 16),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: AppSpacing.lg),
           // Flexible: mencegah teks panjang overflow keluar dari card
           Flexible(
             child: Text(
@@ -201,18 +211,18 @@ class ItemCard extends StatelessWidget {
               );
           },
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(AppSpacing.lg),
             // horizontal = true -> icon di samping teks (logout)
             // horizontal = false -> icon di atas teks (view / add)
             child: horizontal
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [icon, const SizedBox(width: 12), label],
+                    children: [icon, const SizedBox(width: AppSpacing.sm), label],
                   )
                 : Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [icon, const SizedBox(height: 12), label],
+                    children: [icon, const SizedBox(height: AppSpacing.sm), label],
                   ),
           ),
         ),
