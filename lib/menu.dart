@@ -64,3 +64,70 @@ class InfoCard extends StatelessWidget {
   }
 }
 
+class ItemCard extends StatelessWidget {
+  final ItemHomepage item;
+  final bool horizontal;
+
+  const ItemCard(this.item, {super.key, this.horizontal = false});
+
+  @override
+  Widget build(BuildContext context) {
+    final borderRadius = BorderRadius.circular(16);
+    final icon = Icon(item.icon, color: item.color, size: 24);
+    final label = Text(
+      item.name,
+      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white) ??
+          const TextStyle(color: AppColors.white, fontSize: 16),
+    );
+
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: borderRadius,
+        boxShadow: [
+          BoxShadow(color: item.color.withAlpha(77), blurRadius: 10),
+        ],
+      ),
+      child: Material(
+        color: AppColors.surface,
+        shape: RoundedRectangleBorder(
+          borderRadius: borderRadius,
+          side: BorderSide(color: item.color, width: 1.5),
+        ),
+        child: InkWell(
+          borderRadius: borderRadius,
+          onTap: () {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: AppColors.surface,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: borderRadius,
+                    side: BorderSide(color: item.color, width: 1.5),
+                  ),
+                  content: Text(
+                    "You've clicked ${item.name} button!",
+                    style: const TextStyle(color: AppColors.white),
+                  ),
+                ),
+              );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: horizontal
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [icon, const SizedBox(width: 12), label],
+                  )
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [icon, const SizedBox(height: 12), label],
+                  ),
+          ),
+        ),
+      ),
+    );
+  }
+}
