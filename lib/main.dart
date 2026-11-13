@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myportfolio_mobile/menu.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,19 +9,25 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'MyPortfolio',
       theme: ThemeData(
+        useMaterial3: true,
+        scaffoldBackgroundColor: AppColors.background,
         colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.indigo,
-            secondary: Colors.amber[700],
+          seedColor: Colors.purple,
+          brightness: Brightness.dark,
+        ),
+        textTheme: GoogleFonts.cascadiaCodeTextTheme(
+          const TextTheme(
+            titleLarge: TextStyle(fontSize: 32.0),
+            bodyLarge: TextStyle(fontSize: 16.0),
           ),
-          useMaterial3: true,
+        ),
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
