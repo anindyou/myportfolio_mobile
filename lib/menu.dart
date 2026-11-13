@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Warna
 class AppColors {
   AppColors._();
 
@@ -22,6 +21,88 @@ class ItemHomepage {
   final Color color;
 
   const ItemHomepage(this.name, this.icon, this.color);
+}
+
+class MyHomePage extends StatelessWidget {
+  constMyHomePage({super.key});
+
+  final String mainTitle = 'MyPortfolio...';
+  final String npm = '2506553295';
+  final String name = 'Anindya Raihani Hassan';
+  final String myClass = 'PBP B';
+  final String bio =
+      'An undergraduate Computer Science student at Universitas Indonesia '
+      'who combines UI/UX design and front-end development to turn raw ideas '
+      'into clean, functional, and fully shipped projects.';
+
+  final ItemHomepage viewSkills =
+      const ItemHomepage('View Skills', Icons.visibility_outlined, AppColors.green);
+  final ItemHomepage addSkill =
+      const ItemHomepage('Add Skill', Icons.add, AppColors.green);
+  final ItemHomepage viewExperiences =
+      const ItemHomepage('View Experiences', Icons.visibility_outlined, AppColors.purple);
+  final ItemHomepage addExperience =
+      const ItemHomepage('Add Experience', Icons.add, AppColors.purple);
+  final ItemHomepage logout =
+      const ItemHomepage('Logout', Icons.logout, AppColors.red);
+
+  // Helper function: Membentuk baris berisi 2 ItemHomePage
+  Widget _buildRow(ItemHomepage left, ItemHomepage right) { 
+    return Row(
+      children: [
+        Expanded(child: ItemCard(left)),
+        const SizedBox(width: 12),
+        Expanded(child: ItemCard(right)),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                mainTitle,
+                textAlign: TextAlign.center,
+                style: textTheme.titleLarge?.copyWith(
+                      color: AppColors.white,
+                    ) ??
+                    const TextStyle(
+                      color: AppColors.white,
+                      fontSize: 32,
+                    ),
+              ),
+              const SizedBox(height: 16),
+              InfoCard(title: 'npm', content: npm),
+              const SizedBox(height: 8),
+              InfoCard(title: 'name', content: name),
+              const SizedBox(height: 8),
+              InfoCard(title: 'class', content: myClass),
+              const SizedBox(height: 16),
+              Text(
+                bio,
+                style: textTheme.bodyLarge?.copyWith(color: AppColors.white) ??
+                    const TextStyle(color: AppColors.white, fontSize: 16),
+              ),
+              const SizedBox(height: 16),
+              _buildRow(viewSkills, addSkill),
+              const SizedBox(height: 16),
+              _buildRow(viewExperiences, addExperience),
+              const SizedBox(height: 16),
+              ItemCard(logout, horizontal: true),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class InfoCard extends StatelessWidget {
