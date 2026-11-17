@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myportfolio_mobile/menu.dart';
-import 'package:myportfolio_mobile/skill_form.dart'; // asumsi nama file, sesuaikan nanti
+import 'package:myportfolio_mobile/screens/menu.dart';
+import 'package:myportfolio_mobile/screens/skill_form.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});

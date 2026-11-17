@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myportfolio_mobile/widgets/left_drawer.dart';
-import 'package:myportfolio_mobile/menu.dart';
+import 'package:myportfolio_mobile/screens/menu.dart';
 
 class SkillFormPage extends StatefulWidget {
   const SkillFormPage({super.key});

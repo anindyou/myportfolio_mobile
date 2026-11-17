@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myportfolio_mobile/widgets/left_drawer.dart';
-import 'package:myportfolio_mobile/skill_form.dart'; // asumsi nama file, sesuaikan nanti
-
+import 'package:myportfolio_mobile/widgets/skill_card.dart';
+import 'package:myportfolio_mobile/widgets/info_card.dart';
 
 /// Spacing
 class AppSpacing {
@@ -119,128 +119,6 @@ class MyHomePage extends StatelessWidget {
               const SizedBox(height: AppSpacing.lg),
               ItemCard(logout, horizontal: true),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class InfoCard extends StatelessWidget {
-  final String title;
-  final String content;
-
-  const InfoCard({super.key, required this.title, required this.content});
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.blue, width: 1.5),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            '> $title',
-            style: textTheme.bodyLarge?.copyWith(color: AppColors.blue) ??
-                const TextStyle(color: AppColors.blue, fontSize: 16),
-          ),
-          const SizedBox(width: AppSpacing.lg),
-          // Flexible: mencegah teks panjang overflow keluar dari card
-          Flexible(
-            child: Text(
-              content,
-              textAlign: TextAlign.end,
-              style: textTheme.bodyLarge?.copyWith(color: AppColors.blue) ??
-                  const TextStyle(color: AppColors.blue, fontSize: 16),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ItemCard extends StatelessWidget {
-  final ItemHomepage item;
-  final bool horizontal;
-
-  const ItemCard(this.item, {super.key, this.horizontal = false});
-
-  @override
-  Widget build(BuildContext context) {
-    final borderRadius = BorderRadius.circular(16);
-    final icon = Icon(item.icon, color: item.color, size: 24);
-    final label = Text(
-      item.name,
-      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white) ??
-          const TextStyle(color: AppColors.white, fontSize: 16),
-    );
-    
-    // DecoratedBox untuk efek glow (BoxShadow) di luar card
-    // InkWell untuk ripple effect
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: borderRadius,
-        boxShadow: [
-          BoxShadow(color: item.color.withAlpha(77), blurRadius: 10),
-        ],
-      ),
-      child: Material(
-        color: AppColors.surface,
-        shape: RoundedRectangleBorder(
-          borderRadius: borderRadius,
-          side: BorderSide(color: item.color, width: 1.5),
-        ),
-        child: InkWell(
-          borderRadius: borderRadius,
-          onTap: () {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar() // Menutup SnackBar sebelumnya supaya pesan tidak menumpuk
-              ..showSnackBar(
-                SnackBar(
-                  behavior: SnackBarBehavior.floating,
-                  backgroundColor: AppColors.surface,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: borderRadius,
-                    side: BorderSide(color: item.color, width: 1.5),
-                  ),
-                  content: Text(
-                    "You've clicked ${item.name} button!",
-                    style: const TextStyle(color: AppColors.white),
-                  ),
-                ),
-              );
-              if (item.name == "Add Skill") {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SkillFormPage(),
-                  ),
-                );
-                // TODO: Gunakan Navigator.push() untuk melakukan navigasi ke MaterialPageRoute yang mencakup ProjectFormPage
-              }
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            // horizontal = true -> icon di samping teks (logout)
-            // horizontal = false -> icon di atas teks (view / add)
-            child: horizontal
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [icon, const SizedBox(width: AppSpacing.sm), label],
-                  )
-                : Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [icon, const SizedBox(height: AppSpacing.sm), label],
-                  ),
           ),
         ),
       ),
