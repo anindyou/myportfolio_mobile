@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myportfolio_mobile/widgets/left_drawer.dart';
+import 'package:myportfolio_mobile/skill_form.dart'; // asumsi nama file, sesuaikan nanti
+
 
 /// Spacing
 class AppSpacing {
@@ -75,6 +78,11 @@ class MyHomePage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.surface,
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
+      drawer: const LeftDrawer(),
       body: SafeArea( // Menghindari area notch dan status bar
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(AppSpacing.xl), // Jarak 24 px di sekeliling seluruh konten dari layar utama
@@ -209,6 +217,15 @@ class ItemCard extends StatelessWidget {
                   ),
                 ),
               );
+              if (item.name == "Add Skill") {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SkillFormPage(),
+                  ),
+                );
+                // TODO: Gunakan Navigator.push() untuk melakukan navigasi ke MaterialPageRoute yang mencakup ProjectFormPage
+              }
           },
           child: Padding(
             padding: const EdgeInsets.all(AppSpacing.lg),
