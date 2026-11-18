@@ -59,7 +59,6 @@ class ItemCard extends StatelessWidget {
                     builder: (context) => const SkillFormPage(),
                   ),
                 );
-                // TODO: Gunakan Navigator.push() untuk melakukan navigasi ke MaterialPageRoute yang mencakup ProjectFormPage
               }
           },
           child: Padding(
