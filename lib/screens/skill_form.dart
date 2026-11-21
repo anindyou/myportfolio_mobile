@@ -14,11 +14,11 @@ class _SkillFormPageState extends State<SkillFormPage> {
 
   String _skillTitle = "";
   String _description = "";
-  String _skillIcon = "";
-
+  String? _level;
+  final List<String> _levels = ['Beginner', 'Intermediate', 'Advanced'];
 
   // Helper function: Dekorasi TextFormField
-  InputDecoration _inputDecoration(String label) {
+  InputDecoration _inputDecoration(String label, {bool hasValue = false}) {
     OutlineInputBorder border(Color color) => OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(color: color, width: 1.5),
@@ -28,13 +28,13 @@ class _SkillFormPageState extends State<SkillFormPage> {
       hintText: label,
       labelText: label,
       hintStyle: TextStyle(color: AppColors.white.withAlpha(120)),
-      labelStyle: const TextStyle(color: AppColors.blue),
+      labelStyle: const TextStyle(color: AppColors.white),
       floatingLabelStyle: const TextStyle(color: AppColors.green),
       errorStyle: const TextStyle(color: AppColors.red),
       filled: true,
       fillColor: AppColors.surface,
-      border: border(AppColors.blue),
-      enabledBorder: border(AppColors.blue),
+      border: border(AppColors.green),
+      enabledBorder: border(hasValue ? AppColors.green : AppColors.white),
       focusedBorder: border(AppColors.green),
       errorBorder: border(AppColors.red),
       focusedErrorBorder: border(AppColors.red),
@@ -66,7 +66,7 @@ class _SkillFormPageState extends State<SkillFormPage> {
                 child: TextFormField(
                   style: const TextStyle(color: AppColors.white),
                   cursorColor: AppColors.green,
-                  decoration: _inputDecoration("Skill's title"),
+                  decoration: _inputDecoration("Skill's title", hasValue: _skillTitle.trim().isNotEmpty),
                   onChanged: (String? value) {
                     setState(() {
                       _skillTitle = value!;
@@ -86,7 +86,7 @@ class _SkillFormPageState extends State<SkillFormPage> {
                 child: TextFormField(
                   style: const TextStyle(color: AppColors.white),
                   cursorColor: AppColors.green,
-                  decoration: _inputDecoration("Skill's description"),
+                  decoration: _inputDecoration("Skill's description", hasValue: _description.trim().isNotEmpty),
                   onChanged: (String? value) {
                     setState(() {
                       _description = value!;
@@ -100,17 +100,31 @@ class _SkillFormPageState extends State<SkillFormPage> {
                   },
                 ),
               ),
-              // === Icon ===
+              // === Level ===
               Padding(
                 padding: const EdgeInsets.all(AppSpacing.lg),
-                child: TextFormField(
+                child: DropdownButtonFormField<String>(
+                  initialValue: _level,
+                  dropdownColor: AppColors.surface,
                   style: const TextStyle(color: AppColors.white),
-                  cursorColor: AppColors.green,
-                  decoration: _inputDecoration("Icon Skill"),
+                  iconEnabledColor: AppColors.white,
+                  decoration: _inputDecoration("Skill Level", hasValue: _level != null),
+                  items: _levels
+                      .map((level) => DropdownMenuItem(
+                            value: level,
+                            child: Text(level),
+                          ))
+                      .toList(),
                   onChanged: (String? value) {
                     setState(() {
-                      _skillIcon = value!;
+                      _level = value;
                     });
+                  },
+                  validator: (String? value) {
+                    if (value == null) {
+                      return "Level must be chosen!";
+                    }
+                    return null;
                   },
                 ),
               ),
@@ -158,7 +172,7 @@ class _SkillFormPageState extends State<SkillFormPage> {
                                   children: [
                                     Text("Title: $_skillTitle"),
                                     Text("Description: $_description"),
-                                    Text("Icon: $_skillIcon"),
+                                    Text("Level: $_level"),
                                   ],
                                 ),
                               ),
@@ -171,6 +185,11 @@ class _SkillFormPageState extends State<SkillFormPage> {
                                   onPressed: () {
                                     Navigator.pop(context);
                                     _formKey.currentState!.reset();
+                                    setState(() {
+                                      _skillTitle = "";
+                                      _description = "";
+                                      _level = null;
+                                    });
                                   },
                                 ),
                               ],
