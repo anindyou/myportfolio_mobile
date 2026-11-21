@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myportfolio_mobile/widgets/left_drawer.dart';
-import 'package:myportfolio_mobile/widgets/skill_card.dart';
+import 'package:myportfolio_mobile/widgets/item_card.dart';
 import 'package:myportfolio_mobile/widgets/info_card.dart';
 
 /// Spacing
