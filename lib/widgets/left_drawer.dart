@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myportfolio_mobile/screens/menu.dart';
 import 'package:myportfolio_mobile/screens/skill_form.dart';
+import 'package:myportfolio_mobile/screens/experience_form.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -41,7 +42,7 @@ class LeftDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            iconColor: AppColors.green,
+            iconColor: AppColors.blue,
             textColor: AppColors.white,
             leading: const Icon(Icons.home_outlined),
             title: const Text('Home'),
@@ -55,7 +56,7 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            iconColor: AppColors.green,
+            iconColor: AppColors.blue,
             textColor: AppColors.white,
             leading: const Icon(Icons.add_circle_outline),
             title: const Text('Add skill'),
@@ -64,6 +65,20 @@ class LeftDrawer extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const SkillFormPage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            iconColor: AppColors.blue,
+            textColor: AppColors.white,
+            leading: const Icon(Icons.add_circle_outline),
+            title: const Text('Add experience'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ExperienceFormPage(),
                 ),
               );
             },
