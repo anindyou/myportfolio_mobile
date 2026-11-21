@@ -42,7 +42,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
     '${_dateFmt.format(_startedAt!)} - ${_endedAt == null ? 'Present' : _dateFmt.format(_endedAt!)}';
 
   // Helper function: Dekorasi TextFormField
-  InputDecoration _inputDecoration(String label) {
+  InputDecoration _inputDecoration(String label, {bool hasValue = false}) {
     OutlineInputBorder border(Color color) => OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(color: color, width: 1.5),
@@ -52,14 +52,14 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
       hintText: label,
       labelText: label,
       hintStyle: TextStyle(color: AppColors.white.withAlpha(120)),
-      labelStyle: const TextStyle(color: AppColors.blue),
-      floatingLabelStyle: const TextStyle(color: AppColors.green),
+      labelStyle: const TextStyle(color: AppColors.white),
+      floatingLabelStyle: const TextStyle(color: AppColors.purple),
       errorStyle: const TextStyle(color: AppColors.red),
       filled: true,
       fillColor: AppColors.surface,
-      border: border(AppColors.blue),
-      enabledBorder: border(AppColors.blue),
-      focusedBorder: border(AppColors.green),
+      border: border(AppColors.purple),
+      enabledBorder: border(hasValue ? AppColors.purple : AppColors.white),
+      focusedBorder: border(AppColors.purple),
       errorBorder: border(AppColors.red),
       focusedErrorBorder: border(AppColors.red),
     );
@@ -89,8 +89,8 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                 padding: const EdgeInsets.all(AppSpacing.lg),
                 child: TextFormField(
                   style: const TextStyle(color: AppColors.white),
-                  cursorColor: AppColors.green,
-                  decoration: _inputDecoration("Experience's title"),
+                  cursorColor: AppColors.purple,
+                  decoration: _inputDecoration("Experience's title", hasValue: _experienceTitle.trim().isNotEmpty),
                   onChanged: (String? value) {
                     setState(() {
                       _experienceTitle = value!;
@@ -109,8 +109,8 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                 padding: const EdgeInsets.all(AppSpacing.lg),
                 child: TextFormField(
                   style: const TextStyle(color: AppColors.white),
-                  cursorColor: AppColors.green,
-                  decoration: _inputDecoration("Institution's name"),
+                  cursorColor: AppColors.purple,
+                  decoration: _inputDecoration("Institution's name", hasValue: _institution.trim().isNotEmpty),
                   onChanged: (String? value) {
                     setState(() {
                       _institution = value!;
@@ -129,8 +129,8 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                 padding: const EdgeInsets.all(AppSpacing.lg),
                 child: TextFormField(
                   style: const TextStyle(color: AppColors.white),
-                  cursorColor: AppColors.green,
-                  decoration: _inputDecoration("Experience's description"),
+                  cursorColor: AppColors.purple,
+                  decoration: _inputDecoration("Experience's description", hasValue: _description.trim().isNotEmpty),
                   onChanged: (String? value) {
                     setState(() {
                       _description = value!;
@@ -151,7 +151,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                   controller: _startedAtCtrl,
                   readOnly: true,
                   style: const TextStyle(color: AppColors.white),
-                  decoration: _inputDecoration("Started at"),
+                  decoration: _inputDecoration("Started at", hasValue: _startedAt != null),
                   onTap: () async {
                     final picked = await _pickDate(_startedAt);
                     if (picked != null) {
@@ -172,7 +172,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                   controller: _endedAtCtrl,
                   readOnly: true,
                   style: const TextStyle(color: AppColors.white),
-                  decoration: _inputDecoration("Ended at (optional)"),
+                  decoration: _inputDecoration("Ended at (optional)", hasValue: _endedAt != null),
                   onTap: () async {
                     final picked = await _pickDate(_endedAt ?? _startedAt);
                     if (picked != null) {
@@ -200,7 +200,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.surface,
-                      foregroundColor: AppColors.green,
+                      foregroundColor: AppColors.purple,
                       elevation: 0,
                       minimumSize: const Size(140, 56),
                       padding: const EdgeInsets.symmetric(
@@ -211,7 +211,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                         side: const BorderSide(
-                            color: AppColors.green, width: 1.5),
+                            color: AppColors.purple, width: 1.5),
                       ),
                     ),
                     onPressed: () {
@@ -225,7 +225,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 side: const BorderSide(
-                                    color: AppColors.green, width: 1.5),
+                                    color: AppColors.purple, width: 1.5),
                               ),
                               title: const Text(
                                 'Experience is successfully added!',
@@ -236,6 +236,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text("Title: $_experienceTitle"),
+                                    Text("Institution: $_institution"),
                                     Text("Description: $_description"),
                                     Text("Period: $period"),
                                   ],
@@ -244,15 +245,21 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                               actions: [
                                 TextButton(
                                   style: TextButton.styleFrom(
-                                    foregroundColor: AppColors.green,
+                                    foregroundColor: AppColors.purple,
                                   ),
                                   child: const Text('OK'),
                                   onPressed: () {
                                     Navigator.pop(context);
                                     _formKey.currentState!.reset();
+                                    // Mengembalikan hasValue ke false
                                     setState(() {
+                                      _experienceTitle = "";
+                                      _institution = "";
+                                      _description = "";
                                       _startedAt = null;
                                       _endedAt = null;
+                                      _startedAtCtrl.clear();
+                                      _endedAtCtrl.clear();     
                                     });
                                   },
                                 ),
