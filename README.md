@@ -138,3 +138,83 @@ Full restart diperlukan saat:
 Melalui desain yang saya buat di Figma, Claude membantu mencocokkan desain dengan ketentuan tugas dan memberikan saran revisi, menulis versi pertama menu.dart dan main.dart, menjelaskan error (google_fonts, lint prefer_const_constructors_in_immutables), mengoreksi komentar kode yang saya tulis, membantu verifikasi jawaban pertanyaan reflektif, dan merapikan format README (struktur tabel).
 
 Keterbatasan yang saya temui: Claude tidak bisa memverifikasi lingkungan saya, sehingga GoogleFonts.cascadiaCodeTextTheme gagal dikompilasi karena versi google_fonts saya tidak compatible. Karena itu saya mengerjakan sendiri bagian berikut: desain awal dan penamaan warna di Figma, pemilihan gaya neon outline dan susunan tombol, dan penyesuaian kode agar mengikuti tutorial (final, textTheme, AppColors di menu.dart).
+
+## Tugas 8: Pertanyaan Reflektif
+
+### 1. Navigator
+
+- `Navigator.push()` berfungsi menambahkan route baru ke bagian paling atas stack halaman yang sudah ada. Jadi halaman saat ini tetap ada di bawah halaman baru.
+- `Navigator.pushReplacement()` berfungsi mengganti halaman yang sedang aktif di posisi teratas stack dengan halaman baru. Jadi halaman saat ini dihapus dan ditimpa halaman baru.
+- `Navigator.pop()` berfungsi Menghapus atau mengeluarkan halaman yang sedang aktif (paling atas) dari stack. Jadi pengguna balik ke halaman yang persis di bawahnya.
+- Metode yang digunakan untuk membuka form dari item card adalah `Navigator.push()` yang terlihat pada kode di bawah ini:
+
+```
+if (item.name == "Add Skill") {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const SkillFormPage(),
+    ),
+  );
+}
+```
+
+- Opsi home di drawer ketika dipencet (`onTap`) memiliki fungsi seperti ini:
+
+```
+onTap: () {
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const MyHomePage(),
+    ),
+  );
+},
+```
+
+`onTap` menggunakan `pushReplacement` dan route akan langsung di arahkan ke `MyHomePage`. Jadi, halaman atau route apapun yang sedang dilihat pengguna sekarang akan langsung dihapus kemudian digantikan dengan halaman `MyHomePage`.
+
+### 2. Susunan struktur halaman
+
+`Scaffold` adalah kerangka dasar halaman yang menyediakan `appBar`, `drawer`, `body`, dan `backgroundColor` untuk seluruh halaman. Karena setiap halaman memakai kerangka yang sama, posisi appbar, icon, dan area konten akan selalu konsisten.
+
+`AppBar` memakai `backgroundColor: AppColors.background` dan `foregroundColor: AppColors.white` di semua halaman, jadi tampilannya menyatu dengan latar halaman.
+
+`Drawer` dibuat sekali dalam widget `LeftDrawer`, lalu dipasang lewat drawer: `const LeftDrawer()` di setiap halaman. Menu navigasi yaitu Home, Add Skill, dan Add Experience selalu sama jadi hanya perlu diubah di satu tempat.
+
+Salah satu contoh penggunaan warna tema di lebih dari satu halaman adalah penggunaan `AppColors.green` di `menu.dart` sebagai border card Add Skill. Warna ini kemudian dipakai lagi di `skill_form.dart` sebagai border field saat fokus, tombol Save, dan border dialog.
+
+### 3. Tata letak formulir
+
+Form disusun dengan `Column` di dalam `SingleChildScrollView`. Setiap field dibungkus `Padding` dengan `AppSpacing.lg (16)`, dan tombol Save diletakkan di kanan bawah memakai `Align(alignment: Alignment.centerRight)`. Susunan vertikal dipilih karena input form dibaca dan diisi berurutan dari atas ke bawah, dan cocok untuk layar ponsel yang sempit.
+
+`Padding` memberi jarak antar field supaya mudah disentuh, tidak terlihat berdempetan, dan ada ruang untuk pesan error yang muncul di bawah field tanpa menabrak field berikutnya. Saya juga memakai `AppSpacing` sehingga jarak seragam di semua halaman.
+
+`SingleChildScrollView` penting ketika ruang layar terbatas, misalnya layar kecil atau saat papan ketik muncul dan menutupi sebagian layar. Tanpa widget ini, `Column` yang tingginya melebihi layar akan overflow dan field paling bawah atau tombol Save tidak terjangkau. Dengan scroll, pengguna tetap bisa menggulir ke field mana pun dan menekan Save.
+
+### 4. GlobalKey, validator, dan validate()
+
+`GlobalKey<FormState>` dipasang pada widget `Form `agar kita bisa mengakses `FormState` dari luar form, tepatnya dari tombol Save yang berada di dalam `onPressed`. Key ini juga dipakai untuk `reset()` setelah dialog ditutup.
+
+`validator` adalah fungsi pada setiap `TextFormField` yang memeriksa nilai input. Fungsi ini mengembalikan null jika valid, atau string pesan jika tidak valid. Pesan itu ditampilkan di bawah field terkait.
+
+`validate()` dipanggil lewat `_formKey.currentState!.validate()` saat Save ditekan. Fungsi ini menjalankan semua validator dalam form sekaligus, menampilkan pesan error pada field yang gagal, dan mengembalikan true hanya jika semuanya lolos. Dialog ringkasan hanya ditampilkan jika hasilnya true.
+
+Contoh nilai yang ditolak adalah ketika judul skill kosong atau hanya berisi spasi(" "). Validator menolaknya lewat `value.trim().isEmpty`.
+
+Memilih jenis input atau papan ketik saja belum cukup karena keduanya hanya mengatur tampilan dan kemudahan mengisi, bukan aturan pengisian data. Aturan seperti wajib untuk diisi ataupun tidak boleh mengisi field hanya dengan spasi (kosong) hanya bisa dipastikan oleh validator.
+
+## Tugas 8: AI Disclosure
+
+Link: https://claude.ai/share/6056a62c-8e20-4dd4-9a3b-bd5c6fb01c2c
+
+Saya menggunakan Claude AI sebagai alat bantu dalam pengerjaan Tugas 8. Karena form experience mengikuti pola yang sama dengan form skill, bantuan AI lebih banyak dipakai untuk hal yang baru bagi saya, yaitu:
+
+- penggunaan `DateTime`, `showDatePicker()`, dan paket `intl` untuk field tanggal beserta validasi urutan tanggalnya,
+- penjelasan alasan di balik suatu kode, seperti perbedaan `border`, `enabledBorder`, dan `focusedBorder`,
+
+Bagian yang saya kerjakan dan sesuaikan sendiri antara lain:
+
+- desain tampilan form (warna tema green untuk skill dan purple untuk experience), termasuk logika agar border berubah warna setelah field terisi, yang saya bangun di atas kerangka `_inputDecoration`
+- pemilihan field untuk tiap model (misalnya level skill berupa dropdown dan tanggal selesai yang opsional),
+- integrasi navigasi dari kartu dan drawer, serta pengujian alur aplikasi.
