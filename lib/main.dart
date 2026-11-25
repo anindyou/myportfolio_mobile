@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:myportfolio_mobile/screens/menu.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myportfolio_mobile/services/api_client.dart';
+import 'package:myportfolio_mobile/services/auth_state.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({required this.apiClient, super.key});
+
+  final ApiClient apiClient;
 
   @override
   Widget build(BuildContext context) {
-    return Provider<ApiClient>(
-      create: (_) => ApiClient(),
+    return MultiProvider(
+      providers: [
+        Provider.value(value: apiClient),
+        ChangeNotifierProvider(create: (_) => AuthState(apiClient)),
+      ],
       child: MaterialApp(
         title: 'MyPortfolio',
         theme: ThemeData(
