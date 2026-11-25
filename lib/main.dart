@@ -11,23 +11,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MyPortfolio',
-      theme: ThemeData(
-        useMaterial3: true,
-        scaffoldBackgroundColor: AppColors.background,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.purple,
-          brightness: Brightness.dark,
-        ),
-        textTheme: GoogleFonts.cascadiaCodeTextTheme(
-          const TextTheme(
-            titleLarge: TextStyle(fontSize: 32.0),
-            bodyLarge: TextStyle(fontSize: 16.0),
+    return Provider<ApiClient>(
+      create: (_) => ApiClient(),
+      child: MaterialApp(
+        title: 'MyPortfolio',
+        theme: ThemeData(
+          useMaterial3: true,
+          scaffoldBackgroundColor: AppColors.background,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.purple,
+            brightness: Brightness.dark,
+          ),
+          textTheme: GoogleFonts.cascadiaCodeTextTheme(
+            const TextTheme(
+              titleLarge: TextStyle(fontSize: 32.0),
+              bodyLarge: TextStyle(fontSize: 16.0),
+            ),
           ),
         ),
+        home: const MyHomePage(),
       ),
-      home: const MyHomePage(),
     );
   }
 }

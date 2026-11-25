@@ -65,6 +65,11 @@ class ItemCard extends StatelessWidget {
                   context,
                   MaterialPageRoute(builder: (context) => const ExperienceFormPage()),
                 );
+              } else if (item.name == "View Experiences") {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ExperienceListScreen()),
+                );
               }
           },
           child: Padding(
