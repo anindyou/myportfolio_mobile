@@ -71,3 +71,20 @@ class ApiClient {
     final decoded = jsonDecode(response.body) as Map<String, dynamic>;
     return decoded['token'] as String;
   }
+
+  
+  Future<void> logout({required String token}) async {
+    final response = await _client.post(
+      _uri('/api/v1/auth/logout/'),
+      headers: {'Authorization': 'Token $token'},
+    );
+    _ensureSuccess(response);
+  }
+
+  void _ensureSuccess(http.Response response) {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return;
+    }
+    throw ApiException(response.statusCode, response.body);
+  }
+}
