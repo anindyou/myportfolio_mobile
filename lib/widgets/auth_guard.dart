@@ -5,11 +5,11 @@ import 'package:provider/provider.dart';
 
 /// Ensures the user is authenticated, pushing [LoginScreen] when needed.
 Future<bool> ensureLoggedIn(BuildContext context) async {
-    if (context.read<AuthState>().isLoggedIn) return true;
+  if (context.read<AuthState>().isLoggedIn) return true;
 
-    final loggedIn = await Navigator.push<bool>(
-        context,
-        MaterialPageRoute(builder: (_) => const LoginScreen()),
-    );
-    return loggedIn ?? false;
+  final loggedIn = await Navigator.push<bool>(
+    context,
+    MaterialPageRoute(builder: (_) => const LoginScreen()),
+  );
+  return loggedIn ?? false;
 }
