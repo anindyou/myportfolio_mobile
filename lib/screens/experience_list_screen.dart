@@ -78,7 +78,9 @@ class _ExperienceListScreenState extends State<ExperienceListScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                           side: const BorderSide(
-                              color: AppColors.purple, width: 1.5),
+                            color: AppColors.purple,
+                            width: 1.5,
+                          ),
                         ),
                       ),
                       onPressed: _reload,
@@ -119,7 +121,8 @@ class _ExperienceListScreenState extends State<ExperienceListScreen> {
               physics: const AlwaysScrollableScrollPhysics(),
               padding: const EdgeInsets.all(AppSpacing.lg),
               itemCount: experiences.length,
-              separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.md),
+              separatorBuilder: (_, _) =>
+                  const SizedBox(height: AppSpacing.md),
               itemBuilder: (context, index) {
                 final e = experiences[index];
                 final institution = e.institution;
@@ -128,8 +131,9 @@ class _ExperienceListScreenState extends State<ExperienceListScreen> {
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                          color: AppColors.purple.withAlpha(77),
-                          blurRadius: 10),
+                        color: AppColors.purple.withAlpha(77),
+                        blurRadius: 10,
+                      ),
                     ],
                   ),
                   child: Material(
@@ -137,43 +141,53 @@ class _ExperienceListScreenState extends State<ExperienceListScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                       side: const BorderSide(
-                          color: AppColors.purple, width: 1.5),
+                        color: AppColors.purple,
+                        width: 1.5,
+                      ),
                     ),
                     child: InkWell(
-                        borderRadius: BorderRadius.circular(16),
-                        onTap: () {
+                      borderRadius: BorderRadius.circular(16),
+                      onTap: () {
                         Navigator.of(context).push(
-                            MaterialPageRoute(
-                            builder: (_) => ExperienceDetailScreen(experience: e),
-                            ),
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                ExperienceDetailScreen(experience: e),
+                          ),
                         );
-                        },
-                        child: Padding(
-                            padding: const EdgeInsets.all(AppSpacing.lg),
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                Text(
-                                    e.title,
-                                    style: textTheme.bodyLarge?.copyWith(
-                                    color: AppColors.white,
-                                    fontWeight: FontWeight.bold,
-                                    ),
-                                ),
-                                if (institution != null && institution.isNotEmpty) ...[
-                                    const SizedBox(height: AppSpacing.sm),
-                                    Text(institution,
-                                        style: const TextStyle(color: AppColors.purple)),
-                                ],
-                                const SizedBox(height: AppSpacing.sm),
-                                Text(_period(e),
-                                    style: const TextStyle(color: AppColors.blue)),
-                                const SizedBox(height: AppSpacing.sm),
-                                Text(e.description,
-                                    style: const TextStyle(color: AppColors.white)),
-                                ],
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(AppSpacing.lg),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              e.title,
+                              style: textTheme.bodyLarge?.copyWith(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
+                            if (institution != null &&
+                                institution.isNotEmpty) ...[
+                              const SizedBox(height: AppSpacing.sm),
+                              Text(
+                                institution,
+                                style: const TextStyle(color: AppColors.purple),
+                              ),
+                            ],
+                            const SizedBox(height: AppSpacing.sm),
+                            Text(
+                              _period(e),
+                              style: const TextStyle(color: AppColors.blue),
+                            ),
+                            const SizedBox(height: AppSpacing.sm),
+                            Text(
+                              e.description,
+                              style: const TextStyle(color: AppColors.white),
+                            ),
+                          ],
                         ),
+                      ),
                     ),
                   ),
                 );

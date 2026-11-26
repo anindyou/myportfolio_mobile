@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myportfolio_mobile/screens/menu.dart';
-import 'package:myportfolio_mobile/screens/skill_form.dart'; 
-import 'package:myportfolio_mobile/screens/experience_form.dart'; 
+import 'package:myportfolio_mobile/screens/skill_form.dart';
+import 'package:myportfolio_mobile/screens/experience_form.dart';
 import 'package:myportfolio_mobile/screens/experience_list_screen.dart';
 import 'package:myportfolio_mobile/widgets/auth_guard.dart';
 import 'package:myportfolio_mobile/services/auth_state.dart';
@@ -19,18 +19,18 @@ class ItemCard extends StatelessWidget {
     final icon = Icon(item.icon, color: item.color, size: 24);
     final label = Text(
       item.name,
-      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white) ??
+      style:
+          Theme.of(context).textTheme.bodyLarge
+              ?.copyWith(color: AppColors.white) ??
           const TextStyle(color: AppColors.white, fontSize: 16),
     );
-    
+
     // DecoratedBox untuk efek glow (BoxShadow) di luar card
     // InkWell untuk ripple effect
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: borderRadius,
-        boxShadow: [
-          BoxShadow(color: item.color.withAlpha(77), blurRadius: 10),
-        ],
+        boxShadow: [BoxShadow(color: item.color.withAlpha(77), blurRadius: 10)],
       ),
       child: Material(
         color: AppColors.surface,
@@ -57,28 +57,30 @@ class ItemCard extends StatelessWidget {
                   ),
                 ),
               );
-              if (item.name == "Add Skill") {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SkillFormPage(),
-                  ),
-                );
-              } else if (item.name == "Add Experience") {
-                final ok = await ensureLoggedIn(context);
-                if (!ok || !context.mounted) return;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ExperienceFormPage()),
-                );
-              } else if (item.name == "View Experiences") {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ExperienceListScreen()),
-                );
-              } else if (item.name == "Logout") {
-                await context.read<AuthState>().logout();
-              }
+            if (item.name == "Add Skill") {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SkillFormPage()),
+              );
+            } else if (item.name == "Add Experience") {
+              final ok = await ensureLoggedIn(context);
+              if (!ok || !context.mounted) return;
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ExperienceFormPage(),
+                ),
+              );
+            } else if (item.name == "View Experiences") {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ExperienceListScreen(),
+                ),
+              );
+            } else if (item.name == "Logout") {
+              await context.read<AuthState>().logout();
+            }
           },
           child: Padding(
             padding: const EdgeInsets.all(AppSpacing.lg),
@@ -87,12 +89,20 @@ class ItemCard extends StatelessWidget {
             child: horizontal
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [icon, const SizedBox(width: AppSpacing.sm), label],
+                    children: [
+                      icon,
+                      const SizedBox(width: AppSpacing.sm),
+                      label,
+                    ],
                   )
                 : Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [icon, const SizedBox(height: AppSpacing.sm), label],
+                    children: [
+                      icon,
+                      const SizedBox(height: AppSpacing.sm),
+                      label,
+                    ],
                   ),
           ),
         ),

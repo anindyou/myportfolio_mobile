@@ -50,20 +50,35 @@ class MyHomePage extends StatelessWidget {
       'who combines UI/UX design and front-end development to turn raw ideas '
       'into clean, functional, and fully shipped projects.';
 
-  final ItemHomepage viewSkills =
-      const ItemHomepage('View Skills', Icons.visibility_outlined, AppColors.green);
-  final ItemHomepage addSkill =
-      const ItemHomepage('Add Skill', Icons.add, AppColors.green);
-  final ItemHomepage viewExperiences =
-      const ItemHomepage('View Experiences', Icons.visibility_outlined, AppColors.purple);
-  final ItemHomepage addExperience =
-      const ItemHomepage('Add Experience', Icons.add, AppColors.purple);
-  final ItemHomepage logout =
-      const ItemHomepage('Logout', Icons.logout, AppColors.red);
+  final ItemHomepage viewSkills = const ItemHomepage(
+    'View Skills',
+    Icons.visibility_outlined,
+    AppColors.green,
+  );
+  final ItemHomepage addSkill = const ItemHomepage(
+    'Add Skill',
+    Icons.add,
+    AppColors.green,
+  );
+  final ItemHomepage viewExperiences = const ItemHomepage(
+    'View Experiences',
+    Icons.visibility_outlined,
+    AppColors.purple,
+  );
+  final ItemHomepage addExperience = const ItemHomepage(
+    'Add Experience',
+    Icons.add,
+    AppColors.purple,
+  );
+  final ItemHomepage logout = const ItemHomepage(
+    'Logout',
+    Icons.logout,
+    AppColors.red,
+  );
 
   // Helper function: Membentuk baris berisi 2 ItemHomepage
   // Expanded: card mengisi separuh lebar yang tersedia
-  Widget _buildRow(ItemHomepage left, ItemHomepage right) { 
+  Widget _buildRow(ItemHomepage left, ItemHomepage right) {
     return Row(
       children: [
         Expanded(child: ItemCard(left)),
@@ -83,22 +98,21 @@ class MyHomePage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       drawer: const LeftDrawer(),
-      body: SafeArea( // Menghindari area notch dan status bar
+      body: SafeArea(
+        // Menghindari area notch dan status bar
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppSpacing.xl), // Jarak 24 px di sekeliling seluruh konten dari layar utama
+          padding: const EdgeInsets.all(
+            AppSpacing.xl,
+          ), // Jarak 24 px di sekeliling seluruh konten dari layar utama
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 mainTitle,
                 textAlign: TextAlign.center,
-                style: textTheme.titleLarge?.copyWith(
-                      color: AppColors.white,
-                    ) ??
-                    const TextStyle(
-                      color: AppColors.white,
-                      fontSize: 32,
-                    ),
+                style:
+                    textTheme.titleLarge?.copyWith(color: AppColors.white) ??
+                    const TextStyle(color: AppColors.white, fontSize: 32),
               ),
               const SizedBox(height: AppSpacing.lg),
               InfoCard(title: 'npm', content: npm),
@@ -109,7 +123,8 @@ class MyHomePage extends StatelessWidget {
               const SizedBox(height: AppSpacing.lg),
               Text(
                 bio,
-                style: textTheme.bodyLarge?.copyWith(color: AppColors.white) ??
+                style:
+                    textTheme.bodyLarge?.copyWith(color: AppColors.white) ??
                     const TextStyle(color: AppColors.white, fontSize: 16),
               ),
               const SizedBox(height: AppSpacing.lg),

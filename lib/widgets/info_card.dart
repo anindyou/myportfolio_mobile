@@ -12,7 +12,10 @@ class InfoCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.md,
+      ),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
@@ -23,7 +26,8 @@ class InfoCard extends StatelessWidget {
         children: [
           Text(
             '> $title',
-            style: textTheme.bodyLarge?.copyWith(color: AppColors.blue) ??
+            style:
+                textTheme.bodyLarge?.copyWith(color: AppColors.blue) ??
                 const TextStyle(color: AppColors.blue, fontSize: 16),
           ),
           const SizedBox(width: AppSpacing.lg),
@@ -32,7 +36,8 @@ class InfoCard extends StatelessWidget {
             child: Text(
               content,
               textAlign: TextAlign.end,
-              style: textTheme.bodyLarge?.copyWith(color: AppColors.blue) ??
+              style:
+                  textTheme.bodyLarge?.copyWith(color: AppColors.blue) ??
                   const TextStyle(color: AppColors.blue, fontSize: 16),
             ),
           ),

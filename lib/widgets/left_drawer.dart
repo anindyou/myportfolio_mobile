@@ -38,10 +38,7 @@ class LeftDrawer extends StatelessWidget {
                 SizedBox(height: 10),
                 Text(
                   'Explore personal skills and experiences!',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: AppColors.blue,
-                  ),
+                  style: TextStyle(fontSize: 15, color: AppColors.blue),
                 ),
               ],
             ),
@@ -54,9 +51,7 @@ class LeftDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const MyHomePage(),
-                ),
+                MaterialPageRoute(builder: (context) => const MyHomePage()),
               );
             },
           ),
@@ -68,9 +63,7 @@ class LeftDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const SkillFormPage(),
-                ),
+                MaterialPageRoute(builder: (context) => const SkillFormPage()),
               );
             },
           ),

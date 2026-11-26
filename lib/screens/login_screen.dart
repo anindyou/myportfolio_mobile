@@ -58,9 +58,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   InputDecoration _inputDecoration(String label, {bool hasValue = false}) {
     OutlineInputBorder border(Color color) => OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: color, width: 1.5),
-        );
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(color: color, width: 1.5),
+    );
 
     return InputDecoration(
       hintText: label,

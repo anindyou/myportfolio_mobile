@@ -20,9 +20,9 @@ class _SkillFormPageState extends State<SkillFormPage> {
   // Helper function: Dekorasi TextFormField
   InputDecoration _inputDecoration(String label, {bool hasValue = false}) {
     OutlineInputBorder border(Color color) => OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: color, width: 1.5),
-        );
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(color: color, width: 1.5),
+    );
 
     return InputDecoration(
       hintText: label,
@@ -46,9 +46,7 @@ class _SkillFormPageState extends State<SkillFormPage> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Center(
-          child: Text('Add Skill Form'),
-        ),
+        title: const Center(child: Text('Add Skill Form')),
         backgroundColor: AppColors.background,
         foregroundColor: AppColors.white,
         scrolledUnderElevation: 0,
@@ -66,7 +64,10 @@ class _SkillFormPageState extends State<SkillFormPage> {
                 child: TextFormField(
                   style: const TextStyle(color: AppColors.white),
                   cursorColor: AppColors.green,
-                  decoration: _inputDecoration("Skill's title", hasValue: _skillTitle.trim().isNotEmpty),
+                  decoration: _inputDecoration(
+                    "Skill's title",
+                    hasValue: _skillTitle.trim().isNotEmpty,
+                  ),
                   onChanged: (String? value) {
                     setState(() {
                       _skillTitle = value!;
@@ -86,7 +87,10 @@ class _SkillFormPageState extends State<SkillFormPage> {
                 child: TextFormField(
                   style: const TextStyle(color: AppColors.white),
                   cursorColor: AppColors.green,
-                  decoration: _inputDecoration("Skill's description", hasValue: _description.trim().isNotEmpty),
+                  decoration: _inputDecoration(
+                    "Skill's description",
+                    hasValue: _description.trim().isNotEmpty,
+                  ),
                   onChanged: (String? value) {
                     setState(() {
                       _description = value!;
@@ -108,12 +112,15 @@ class _SkillFormPageState extends State<SkillFormPage> {
                   dropdownColor: AppColors.surface,
                   style: const TextStyle(color: AppColors.white),
                   iconEnabledColor: AppColors.white,
-                  decoration: _inputDecoration("Skill Level", hasValue: _level != null),
+                  decoration: _inputDecoration(
+                    "Skill Level",
+                    hasValue: _level != null,
+                  ),
                   items: _levels
-                      .map((level) => DropdownMenuItem(
-                            value: level,
-                            child: Text(level),
-                          ))
+                      .map(
+                        (level) =>
+                            DropdownMenuItem(value: level, child: Text(level)),
+                      )
                       .toList(),
                   onChanged: (String? value) {
                     setState(() {
@@ -147,7 +154,9 @@ class _SkillFormPageState extends State<SkillFormPage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                         side: const BorderSide(
-                            color: AppColors.green, width: 1.5),
+                          color: AppColors.green,
+                          width: 1.5,
+                        ),
                       ),
                     ),
                     onPressed: () {
@@ -160,7 +169,9 @@ class _SkillFormPageState extends State<SkillFormPage> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 side: const BorderSide(
-                                    color: AppColors.green, width: 1.5),
+                                  color: AppColors.green,
+                                  width: 1.5,
+                                ),
                               ),
                               title: const Text(
                                 'Skill is successfully added!',

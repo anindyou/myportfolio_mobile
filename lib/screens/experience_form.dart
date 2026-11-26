@@ -45,7 +45,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
   );
 
   String get _period =>
-    '${_dateFmt.format(_startedAt!)} - ${_endedAt == null ? 'Present' : _dateFmt.format(_endedAt!)}';
+      '${_dateFmt.format(_startedAt!)} - ${_endedAt == null ? 'Present' : _dateFmt.format(_endedAt!)}';
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
@@ -65,9 +65,10 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
     );
 
     try {
-      await context
-          .read<ApiClient>()
-          .createExperience(newExperience, token: token);
+      await context.read<ApiClient>().createExperience(
+        newExperience,
+        token: token,
+      );
       if (!mounted) return;
       _showSuccessDialog();
     } on ApiException catch (e) {
@@ -150,9 +151,9 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
   // Helper function: Dekorasi TextFormField
   InputDecoration _inputDecoration(String label, {bool hasValue = false}) {
     OutlineInputBorder border(Color color) => OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: color, width: 1.5),
-        );
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(color: color, width: 1.5),
+    );
 
     return InputDecoration(
       hintText: label,
@@ -176,9 +177,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Center(
-          child: Text('Add Experience Form'),
-        ),
+        title: const Center(child: Text('Add Experience Form')),
         backgroundColor: AppColors.background,
         foregroundColor: AppColors.white,
         scrolledUnderElevation: 0,
@@ -196,7 +195,10 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                 child: TextFormField(
                   style: const TextStyle(color: AppColors.white),
                   cursorColor: AppColors.purple,
-                  decoration: _inputDecoration("Experience's title", hasValue: _experienceTitle.trim().isNotEmpty),
+                  decoration: _inputDecoration(
+                    "Experience's title",
+                    hasValue: _experienceTitle.trim().isNotEmpty,
+                  ),
                   onChanged: (String? value) {
                     setState(() {
                       _experienceTitle = value!;
@@ -216,7 +218,10 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                 child: TextFormField(
                   style: const TextStyle(color: AppColors.white),
                   cursorColor: AppColors.purple,
-                  decoration: _inputDecoration("Institution's name", hasValue: _institution.trim().isNotEmpty),
+                  decoration: _inputDecoration(
+                    "Institution's name",
+                    hasValue: _institution.trim().isNotEmpty,
+                  ),
                   onChanged: (String? value) {
                     setState(() {
                       _institution = value!;
@@ -236,7 +241,10 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                 child: TextFormField(
                   style: const TextStyle(color: AppColors.white),
                   cursorColor: AppColors.purple,
-                  decoration: _inputDecoration("Experience's description", hasValue: _description.trim().isNotEmpty),
+                  decoration: _inputDecoration(
+                    "Experience's description",
+                    hasValue: _description.trim().isNotEmpty,
+                  ),
                   onChanged: (String? value) {
                     setState(() {
                       _description = value!;
@@ -257,7 +265,10 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                   controller: _startedAtCtrl,
                   readOnly: true,
                   style: const TextStyle(color: AppColors.white),
-                  decoration: _inputDecoration("Started at", hasValue: _startedAt != null),
+                  decoration: _inputDecoration(
+                    "Started at",
+                    hasValue: _startedAt != null,
+                  ),
                   onTap: () async {
                     final picked = await _pickDate(_startedAt);
                     if (picked != null) {
@@ -278,7 +289,10 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                   controller: _endedAtCtrl,
                   readOnly: true,
                   style: const TextStyle(color: AppColors.white),
-                  decoration: _inputDecoration("Ended at (optional)", hasValue: _endedAt != null),
+                  decoration: _inputDecoration(
+                    "Ended at (optional)",
+                    hasValue: _endedAt != null,
+                  ),
                   onTap: () async {
                     final picked = await _pickDate(_endedAt ?? _startedAt);
                     if (picked != null) {
@@ -297,7 +311,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                     return null;
                   },
                 ),
-              ),           
+              ),
               // === Tombol Simpan ===
               Align(
                 alignment: Alignment.centerRight,
@@ -317,7 +331,9 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                         side: const BorderSide(
-                            color: AppColors.purple, width: 1.5),
+                          color: AppColors.purple,
+                          width: 1.5,
+                        ),
                       ),
                     ),
                     onPressed: _submit,
