@@ -121,8 +121,7 @@ class _ExperienceListScreenState extends State<ExperienceListScreen> {
               physics: const AlwaysScrollableScrollPhysics(),
               padding: const EdgeInsets.all(AppSpacing.lg),
               itemCount: experiences.length,
-              separatorBuilder: (_, _) =>
-                  const SizedBox(height: AppSpacing.md),
+              separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
               itemBuilder: (context, index) {
                 final e = experiences[index];
                 final institution = e.institution;
