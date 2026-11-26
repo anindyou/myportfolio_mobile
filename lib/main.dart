@@ -6,7 +6,7 @@ import 'package:myportfolio_mobile/services/auth_state.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp(apiClient: ApiClient()));
 }
 
 class MyApp extends StatelessWidget {
