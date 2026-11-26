@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:myportfolio_mobile/screens/menu.dart';
 import 'package:myportfolio_mobile/screens/skill_form.dart'; 
 import 'package:myportfolio_mobile/screens/experience_form.dart'; 
+import 'package:myportfolio_mobile/screens/experience_list_screen.dart';
+import 'package:myportfolio_mobile/widgets/auth_guard.dart';
+import 'package:myportfolio_mobile/services/auth_state.dart';
+import 'package:provider/provider.dart';
 
 class ItemCard extends StatelessWidget {
   final ItemHomepage item;
@@ -36,7 +40,7 @@ class ItemCard extends StatelessWidget {
         ),
         child: InkWell(
           borderRadius: borderRadius,
-          onTap: () {
+          onTap: () async {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar() // Menutup SnackBar sebelumnya supaya pesan tidak menumpuk
               ..showSnackBar(
@@ -61,6 +65,8 @@ class ItemCard extends StatelessWidget {
                   ),
                 );
               } else if (item.name == "Add Experience") {
+                final ok = await ensureLoggedIn(context);
+                if (!ok || !context.mounted) return;
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const ExperienceFormPage()),
@@ -70,6 +76,8 @@ class ItemCard extends StatelessWidget {
                   context,
                   MaterialPageRoute(builder: (context) => const ExperienceListScreen()),
                 );
+              } else if (item.name == "Logout") {
+                await context.read<AuthState>().logout();
               }
           },
           child: Padding(
